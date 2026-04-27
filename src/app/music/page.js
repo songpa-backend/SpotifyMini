@@ -115,7 +115,7 @@ export default function Music() {
                       [{liked ? "♥" : "♡"}]
                     </button>
                     <p><b>{music.title} - {music.artist}</b></p>
-                    <b><Link href={""} className={styles.detailLink}>(상세보기 &gt;)</Link></b>
+                    <b><Link href={`/music/${music.id}`} className={styles.detailLink}>(상세보기 &gt;)</Link></b>
                   </li>
                 );
               })
