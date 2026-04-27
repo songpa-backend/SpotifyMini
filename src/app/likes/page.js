@@ -19,9 +19,9 @@ export default function LikesPage() {
   }
 
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">❤️ 좋아요한 곡 목록 </h1>
-      <Link href="/" className="text-blue-500 underline mb-4 block">
+    <div>
+      <h1>❤️ 좋아요한 곡 목록 </h1>
+      <Link href="/">
         &larr; 홈
       </Link>
       {favorites.length === 0 ? (
@@ -34,7 +34,7 @@ export default function LikesPage() {
                 if (!fav.music) return null;
 
                 return (
-                <li key={fav.id} className="border-b py-2 flex items-center justify-between">
+                <li key={fav.id}>
                     <button 
                         onClick={() => toggleLike(fav.userId, fav.music.id)}
                         style={{
@@ -48,7 +48,7 @@ export default function LikesPage() {
 
                     <b>
                         {fav.music.title} - {fav.music.artist}
-                        <Link href={""}>(상세보기 &gt;)</Link>
+                        <Link href={`/music/${fav.music.id}`}>(상세보기 &gt;)</Link>
                     </b>
                 </li>
                 );
