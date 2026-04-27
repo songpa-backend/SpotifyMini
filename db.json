@@ -137,17 +137,6 @@
       "content": "가사가 너무 공감돼요."
     }
   ],
-  "favorites": [
-    {
-      "userId": 1,
-      "musicId": 5,
-      "id": "-eXarVacolM"
-    },
-    {
-      "userId": 1,
-      "musicId": 2,
-      "id": "y52OSZUzPA8"
-    }
-  ],
+  "favorites": [],
   "$schema": "./node_modules/json-server/schema.json"
 }
