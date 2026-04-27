@@ -10,7 +10,12 @@ export const likeApi = {
   getFavorites: (userId) => api.get(`/favorites?userId=${userId}`),
   
   // 좋아요 추가
-  addLike: (data) => api.post('/favorites', data),
+  addLike: (data) => {
+    return api.post('/favorites', { 
+      userId: Number(data.userId), 
+      musicId: Number(data.musicId)
+    });
+  },
   
   // 좋아요 삭제
   deleteLike: (id) => api.delete(`/favorites/${id}`)

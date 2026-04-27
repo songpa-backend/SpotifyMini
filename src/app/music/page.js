@@ -6,10 +6,10 @@ import { useEffect, useState } from "react";
 import styles from './page.module.css';
 
 export default function Music() {
-
   const { musics, fetchMusics } = useMusicStore();
   const [searchValue, setSearchValue] = useState('');
   const { fetchFavorites, toggleLike, isLoading: likeLoading } = useLikeStore()
+  
   const userId = 1; // 임시 데이터
 
   const favorites = useLikeStore((state) => state.favorites);
@@ -62,6 +62,7 @@ export default function Music() {
               <b>[&gt;&gt;&gt; 내 좋아요 목록]</b>
             </Link></div>
         </div>
+
       </div>
 
       {/* 검색창 */}
