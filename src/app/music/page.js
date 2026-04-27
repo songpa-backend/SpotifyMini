@@ -3,6 +3,7 @@ import { useLikeStore } from "@/store/useLikeStore";
 import { useMusicStore } from "@/store/useMusicStore";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import styles from './page.module.css';
 
 export default function Music() {
   const { musics, fetchMusics } = useMusicStore();
@@ -16,7 +17,7 @@ export default function Music() {
   useEffect(() => {
     fetchMusics();
     fetchFavorites(userId);
-  }, []);
+  }, [fetchMusics]);
 
   const [searchedMusics, setSearchedMusics] = useState([]);
   const [isSearched, setIsSearched] = useState(false); //검색 버튼 클릭 여부
@@ -36,60 +37,95 @@ export default function Music() {
     console.log(searchedMusics);
   }
 
+  //[전체곡 목록] 버튼 클릭 시 초기화
+  const resetSearch = () => {
+    setSearchValue('');
+    setIsSearched(false);
+    setSearchedMusics([]);
+  };
+
   if (likeLoading) {
     return <div>데이터 로딩 중... 잠시만 기다려 주세요!</div>;
-  } 
+  }
 
   return (
-    <> 
-      <div><Link href={""}>[전체곡]</Link> <Link href={"/likes"}>[&gt;&gt;&gt; 내 좋아요 목록]</Link></div>
-      <div>[검색창:
-        <input type="search"
-          name="musicName"
-          value={searchValue}
-          onChange={(e) => {
-            setSearchValue(e.target.value);
-            if (e.target.value === "") { setIsSearched(false); } //검색창이 완전히 비었을 때만 전체 목록을 보여줌
-          }}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter') {
-              onClickHandler();
-            }
-          }}
-          placeholder="곡명 또는 가수명"
+    <>
+      <div className={styles.container}>
+        {/* 네비게이션 */}
+        <div className={styles.nav}>
+          <div className={styles.navList}>
+            <span onClick={resetSearch}
+              className={styles.allList}
+            >
+              <b>[전체곡]</b></span>
+            <Link href={"/likes"} className={styles.navList}>
+              <b>[&gt;&gt;&gt; 내 좋아요 목록]</b>
+            </Link></div>
+        </div>
 
-        />]
-        <button onClick={onClickHandler} >검색</button>
       </div>
 
-      <div>곡 목록</div>
-      <ul>{
-         (isSearched && searchValue && searchedMusics.length === 0) ?
-         //검색 결과가 없을 때 (검색어 있고, 검색 결과가 없음)
-         <li style={{ color: 'gray' }} > 찾으시는 곡이 없어요.🥺 다른 단어로 검색해보세요. </li>
-         :
-         //보여줄 목록이 하나라도 있으면 표시
-        (searchedMusics.length > 0 ? searchedMusics : musics)?.map(music => {
-          const liked = favorites.some(f => String(f.musicId) === String(music.id));
-          return (
-          <li key={music.id}>
-                <button 
-                onClick={() => toggleLike(userId, music.id)}
-                style={{
-                  background: 'none',
-                  border: 'none',
-                  padding: 0,
-                  cursor: 'pointer'
-                }}>
-                [{liked ? "♥" : "♡"}]
-              </button>
-                <b>{music.title} - {music.artist}
-                  <Link href={""}>(상세보기 &gt;)</Link></b>
-              </li>
-            )})}
-      </ul>
+      {/* 검색창 */}
+      <div className={styles.searchArea}>
+        <div className={styles.searchInputWrapper}>
+          [검색 :
+          <input type="search"
+            name="musicName"
+            value={searchValue}
+            onChange={(e) => {
+              setSearchValue(e.target.value);
+              if (e.target.value === "") { setIsSearched(false); } //검색창이 완전히 비었을 때만 전체 목록을 보여줌
+            }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                onClickHandler();
+              }
+            }}
+            placeholder="곡명 또는 가수명"
+            className={styles.searchInput}
+          />
+          ]
+          <button onClick={onClickHandler} className={styles.searchBtn}>검색</button>
+        </div>
+      </div>
+      {/* 곡 목록 */}
+      <div className={styles.listArea}>
+        <div className={styles.listDivider}></div>
+        <div className={styles.listTitle}>곡 목록</div>
+        <ul className={styles.musicList}>
+          {
+            (isSearched && searchValue && searchedMusics.length === 0) ?
+              //검색 결과가 없을 때 (검색어 있고, 검색 결과가 없음)
+              <li className={styles.emptyMessage} > 찾으시는 곡이 없어요.🥺 다른 단어로 검색해보세요. </li>
+              :
+              //보여줄 목록이 하나라도 있으면 표시
+              (searchedMusics.length > 0 ? searchedMusics : musics)?.map(music => {
+                const liked = favorites.some(f => String(f.musicId) === String(music.id));
+                return (
+                  <li key={music.id} className={styles.musicItem}>
+                    <button
+                      onClick={() => toggleLike(userId, music.id)}
+                      style={{
+                        background: 'none',
+                        border: 'none',
+                        padding: 0,
+                        cursor: 'pointer'
+                      }}
+                    >
+                      [{liked ? "♥" : "♡"}]
+                    </button>
+                    <p><b>{music.title} - {music.artist}</b></p>
+                    <b><Link href={""} className={styles.detailLink}>(상세보기 &gt;)</Link></b>
+                  </li>
+                );
+              })
+          }
+        </ul>
+        <div className={styles.listDivider}></div>
+      </div>
 
-      <div style={{ color: 'white', background: 'black', textAlign: 'center' }} >♡ = 좋아요 안함 / ♥ = 좋아요</div>
+      {/* 푸터 */}
+      <div className={styles.footer} >♡ = 좋아요 안함 / ♥ = 좋아요</div>
 
     </>
   );
