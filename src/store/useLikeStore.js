@@ -1,4 +1,5 @@
 import { likeApi } from '@/app/api/likeApi';
+import axios from 'axios';
 import { create } from "zustand";
 
 export const useLikeStore = create((set, get) => ({
@@ -10,7 +11,20 @@ export const useLikeStore = create((set, get) => ({
 
         try {
             const res = await likeApi.getFavorites(userId);
-            set({ favorites: res.data, isLoading: false })
+            const favData = res.data;
+
+            const detailedFavorites = await Promise.all(
+            favData.map(async (fav) => {
+                try {
+                    const musicRes = await axios.get(`http://localhost:3001/musics/${fav.musicId}`);
+                    return { ...fav, music: musicRes.data };
+                } catch (err) {
+                    console.error(`${fav.musicId}번 음악 정보 로드 실패`, err);
+                    return { ...fav, music: null }; // 에러 시 음악 정보만 null 처리
+                }
+            }));
+
+            set({ favorites: detailedFavorites, isLoading: false })
         } catch (error) {
             console.error("좋아요 목록 로드 실패: ", error);
             set({ isLoading: false });
@@ -24,7 +38,6 @@ export const useLikeStore = create((set, get) => ({
 
         if (existingLike) {
             try {
-                console.log('아이디값 : ', existingLike.id)
                 await likeApi.deleteLike(existingLike.id);
                 set({
                     favorites: favorites.filter(f => f.id !== existingLike.id)

@@ -5,21 +5,21 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function Music() {
+  const { musics, fetchMusics } = useMusicStore();
+  const [searchValue, setSearchValue] = useState('');
+  const { fetchFavorites, toggleLike, isLoading: likeLoading } = useLikeStore()
+  
+  const userId = 1; // 임시 데이터
 
-    const { musics, fetchMusics } = useMusicStore();
-    const [searchValue, setSearchValue] = useState('');
-    const { fetchFavorites, toggleLike, isLoading: likeLoading } = useLikeStore()
-    const userId = 1; // 임시 데이터
+  const favorites = useLikeStore((state) => state.favorites);
 
-    const favorites = useLikeStore((state) => state.favorites);
+  useEffect(() => {
+    fetchMusics();
+    fetchFavorites(userId);
+  }, []);
 
-    useEffect(() => {
-      fetchMusics();
-      fetchFavorites(userId);
-    }, [fetchMusics]);
-
-    const [searchedMusics, setSearchedMusics] = useState([]);
-    const [isSearched, setIsSearched] = useState(false); //검색 버튼 클릭 여부
+  const [searchedMusics, setSearchedMusics] = useState([]);
+  const [isSearched, setIsSearched] = useState(false); //검색 버튼 클릭 여부
 
   const onClickHandler = () => {
     console.log(`검색: ${searchValue}`);
@@ -36,14 +36,13 @@ export default function Music() {
     console.log(searchedMusics);
   }
 
-    if (likeLoading) {
-      return <div>데이터 로딩 중... 잠시만 기다려 주세요!</div>;
-    } 
+  if (likeLoading) {
+    return <div>데이터 로딩 중... 잠시만 기다려 주세요!</div>;
+  } 
 
   return (
-    <>
-      <div><Link href={""}>[전체곡]</Link> <Link href={""}>[&gt;&gt;&gt; 내 좋아요 목록]</Link></div>
-
+    <> 
+      <div><Link href={""}>[전체곡]</Link> <Link href={"/likes"}>[&gt;&gt;&gt; 내 좋아요 목록]</Link></div>
       <div>[검색창:
         <input type="search"
           name="musicName"
