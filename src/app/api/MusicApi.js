@@ -1,5 +1,6 @@
 const BASE_URL = "http://localhost:3001";
 const MUSIC_API_URL = `${BASE_URL}/musics`;
+const COMMENT_API_URL = `${BASE_URL}/comments`;
 
 export const musicApi = {
 
@@ -20,7 +21,66 @@ export const musicApi = {
             //화면이 터지지 않게 빈배열 반환
             return [];
         }
-    }
+    },
 
+    getMusicDetail: async (musicId) => {
+        const API_URL = `${MUSIC_API_URL}/${musicId}`;
+        try {
+            const response = await fetch(API_URL);
+            
+            if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
+            
+            const data = await response.json();
+            return { data };
+        } catch (error) {
+            console.error(error);
+        }
+    },
+
+    getComment: async (userId, musicId) => {
+        const API_URL = `${COMMENT_API_URL}?userId=${userId}&musicId=${musicId}`;
+        try {
+            const response = await fetch(API_URL);
+            if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
+            const data = await response.json();
+            return { data }; // 상세페이지의 res.data와 맞춤
+        } catch (error) {
+            console.error("메모 로드 실패:", error);
+            return { data: [] };
+        }
+    },
+
+    saveComment: async (commentData) => {
+        try {
+            const response = await fetch(COMMENT_API_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    ...commentData,
+                    musicId: Number(commentData.musicId),
+                    userId: Number(commentData.userId)
+                })
+            });
+            const data = await response.json();
+            return { data };
+        } catch (error) {
+            console.error("메모 저장 실패:", error);
+        }
+    },
+
+    // 5. 메모 수정하기 (PATCH)
+    updateComment: async (commentId, content) => {
+        try {
+            const response = await fetch(`${COMMENT_API_URL}/${commentId}`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ content })
+            });
+            const data = await response.json();
+            return { data };
+        } catch (error) {
+            console.error("메모 수정 실패:", error);
+        }
+    }
 
 }
