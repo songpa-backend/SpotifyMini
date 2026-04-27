@@ -57,7 +57,7 @@ export const useLikeStore = create((set, get) => ({
         }
     },
 
-    clearAllFavorites: async (userId) => {
+    clearAllLikes: async () => {
         const { favorites } = get();
         try {
             const deletePromises = favorites.map(f => likeApi.deleteLike(f.id));
