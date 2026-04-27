@@ -26,6 +26,11 @@ export default function RootLayout({ children }) {
         <div className={styles.container}>
           <Layout>
             {children}
+            <footer className={styles.footer}>
+              <div className={styles.divider}>-------------------------------------------</div>
+              <p className={styles.info}>♡ = 좋아요 안함 / ♥ = 좋아요</p>
+              <div className={styles.divider}>-------------------------------------------</div>
+            </footer>
           </Layout>
         </div>
         </body>

@@ -5,6 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { useLikeStore } from "@/store/useLikeStore";
 import { musicApi } from "@/app/api/MusicApi";
+import styles from "./details.module.css";
 
 export default function MusicDetail() {
   const params = useParams(); // URL의 [musicId] 값을 가져옵니다
@@ -64,67 +65,59 @@ export default function MusicDetail() {
 
   return (
     <div>
-      {/* 뒤로가기 버튼 */}
-      <button onClick={() => router.back()}>
+      <button onClick={() => router.back()} className={styles.backButton}>
         &larr; 뒤로가기
       </button>
 
       {/* 곡 정보 영역 */}
-      <div>
-        <div>
-            <p><b>제목:</b> {music.title}</p>
-            <p><b>가수:</b> {music.artist}</p>
-            <p><b>장르:</b> {music.genre}</p>
-            <p><b>길이:</b> {music.duration}</p>
-          </div>
-        <button onClick={() => toggleLike(userId, music.id)}>
-          {isLiked ? "♥" : "♡"}
-        </button>
-      </div>
-
-      <div>
-          <h3>댓글</h3>
-          <div>
-            <textarea 
-              value={commentInput}
-              onChange={(e) => setCommentInput(e.target.value)}
-              rows={3}
-              placeholder="댓글을 입력하세요..."
-            />
-          </div>
+      <div className={styles.inputSection}>
+        <h3 className={styles.sectionTitle}>상세정보</h3>
+        <div className={styles.infoBar}>
+            <span className={styles.infoItem}>제목: {music.title}</span>
+            <span className={styles.infoItem}>가수: {music.artist}</span>
+            <span className={styles.infoItem}>장르: {music.genre}</span>
+            <span className={styles.infoItem}>길이: {music.duration}</span>
         </div>
 
-      <div>
-          <div>
-            {comments.length === 0 ? (
-              <p>작성된 코멘트가 없습니다.</p>
-            ) : (
-              comments.slice().reverse().map((c) => (
-                <div key={c.id}>
-                  {c.content}
-                </div>
-              ))
-            )}
-          </div>
-          <div>
-            <button onClick={handleSaveComment}>
-              [ 저장하기 ]
+        <div style={{ marginTop: '15px' }}>
+            <button 
+                className={styles.likeButton} 
+                onClick={() => toggleLike(userId, music.id)}>
+                [{isLiked ? "♥" : "♡"} 좋아요]
             </button>
-          </div>
         </div>
-
-        <div>
-        -------------------------------------------<br />
-        ♡ = 좋아요 안함 / ♥ = 좋아요<br />
-        -------------------------------------------
       </div>
 
-      {/* 홈으로 이동 */}
-      <div>
-        <Link href="/" >
-          전체 목록 보기
-        </Link>
-      </div>
+      <div className={styles.inputSection}>
+          <h3 className={styles.sectionTitle}>댓글</h3>
+          <div className={styles.notebookContainer}>
+            <span className={`${styles.bracket} ${styles.bracketLeft}`}>[</span>
+            <span className={`${styles.bracket} ${styles.bracketRight}`}>]</span>
+
+            {/* 1. 맨 윗줄: 입력 영역 */}
+            <textarea
+                className={styles.topInput}
+                value={commentInput}
+                onChange={(e) => setCommentInput(e.target.value)}
+                placeholder="댓글을 입력하세요."
+            />
+
+            <div>
+                <button onClick={handleSaveComment} className={styles.saveButton}>
+                    [ 저장하기 ]
+                </button>
+            </div>
+
+            {/* 2. 아랫줄들: 등록된 댓글 목록 */}
+            <div className={styles.commentList}>
+                {comments.map((comment) => (
+                <div key={comment.id} className={styles.commentLine}>
+                    {comment.content}
+                </div>
+                ))}
+            </div>
+            </div>
+        </div>
     </div>
   );
 }

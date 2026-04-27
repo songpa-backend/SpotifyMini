@@ -123,10 +123,6 @@ export default function Music() {
         </ul>
         <div className={styles.listDivider}></div>
       </div>
-
-      {/* 푸터 */}
-      <div className={styles.footer} >♡ = 좋아요 안함 / ♥ = 좋아요</div>
-
     </>
   );
 }
