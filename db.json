@@ -137,6 +137,42 @@
       "content": "가사가 너무 공감돼요."
     }
   ],
-  "favorites": [],
+  "favorites": [
+    {
+      "id": "4",
+      "userId": 2,
+      "musicId": 1
+    },
+    {
+      "id": "5",
+      "userId": 2,
+      "musicId": 9
+    },
+    {
+      "id": "6",
+      "userId": 3,
+      "musicId": 2
+    },
+    {
+      "id": "7",
+      "userId": 3,
+      "musicId": 3
+    },
+    {
+      "id": "8",
+      "userId": 4,
+      "musicId": 7
+    },
+    {
+      "id": "9",
+      "userId": 5,
+      "musicId": 3
+    },
+    {
+      "id": "10",
+      "userId": 5,
+      "musicId": 8
+    }
+  ],
   "$schema": "./node_modules/json-server/schema.json"
 }
