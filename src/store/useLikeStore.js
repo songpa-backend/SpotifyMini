@@ -1,9 +1,7 @@
-import { axios } from "axios";
+import { likeApi } from '@/app/api/likeApi';
 import { create } from "zustand";
 
-const API_URL = 'http://localhost:3001';
-
-const useLikeStore = create((set) => ({
+export const useLikeStore = create((set, get) => ({
     favorites: [],
     isLoading: false,
 
@@ -11,8 +9,8 @@ const useLikeStore = create((set) => ({
         set({ loading: true });
 
         try {
-            const res = await axios.get(`${API_URL}/favorites?userId=${userId}&_expand=music`);
-            set({ favorite: res.data, isLoading: false })
+            const res = await likeApi.getFavorites(userId);
+            set({ favorites: res.data, isLoading: false })
         } catch (error) {
             console.error("좋아요 목록 로드 실패: ", error);
             set({ isLoading: false });
@@ -20,25 +18,25 @@ const useLikeStore = create((set) => ({
     },
 
     toggleLike: async (userId, musicId) => {
-        const { favoirtes } = get();
+        const { favorites } = get();
 
-        const existingLike = favoirtes.find(f => f.musicId === musicId && f.userId === userId);
+        const existingLike = favorites.find(f => String(f.musicId) === String(musicId) && f.userId === userId);
 
         if (existingLike) {
-
             try {
-                await axios.delete(`${API}/favorites/${existingLike.id}`);
+                console.log('아이디값 : ', existingLike.id)
+                await likeApi.deleteLike(existingLike.id);
                 set({
-                    favoirtes: favoirtes.filter(f => f.id !== existingLike.id)
+                    favorites: favorites.filter(f => f.id !== existingLike.id)
                 })
             } catch (error) {
                 console.error("좋아요 취소 실패: ", error);
             }
         } else {
             try {
-                const response = await axios.post(`${API_URL}/favorites`, { userId, musicId });
+                const res = await likeApi.addLike({ userId, musicId });
                 set({
-                    favoirtes: [...favoirtes, response.data]
+                    favorites: [...favorites, res.data]
                 })
             } catch (error) {
                 console.error("좋아요 추가 실패: ", error);
@@ -47,18 +45,14 @@ const useLikeStore = create((set) => ({
     },
 
     clearAllFavorites: async (userId) => {
-        const { favoirtes } = get();
+        const { favorites } = get();
         try {
-            const deletePromises = favoirtes.map(f => axios.delete(`${API_URL}/favorites/${f.id}`));
+            const deletePromises = favorites.map(f => likeApi.deleteLike(f.id));
             await Promise.all(deletePromises);
-            set({ favoirtes: [] });
+            set({ favorites: [] });
         } catch (error) {
             console.error('좋아요 전체 해제 실패: ', error);
         }
-    },
-    
-    isLike: (musicId) => {
-        return get().favoirtes.some(f => f.musicId === musicId);
     }
 
 }))

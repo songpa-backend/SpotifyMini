@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { musicApi } from "../api/MusicApi";
+import { musicApi } from "../app/api/MusicApi";
 
 export const useMusicStore = create( (set)=> ({
     // 1. 상태 (State): 기존 useState([]) 역할
