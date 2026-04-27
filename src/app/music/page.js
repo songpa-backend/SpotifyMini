@@ -58,7 +58,7 @@ export default function Music() {
               className={styles.allList}
             >
               <b>[전체곡]</b></span>
-            <Link href={""} className={styles.navList}>
+            <Link href={"/likes"} className={styles.navList}>
               <b>[&gt;&gt;&gt; 내 좋아요 목록]</b>
             </Link></div>
         </div>
