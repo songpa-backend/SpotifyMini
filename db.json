@@ -1,42 +1,178 @@
 {
   "users": [
-    { "id": 1, "name": "채린" },
-    { "id": 2, "name": "해원" },
-    { "id": 3, "name": "수호" },
-    { "id": 4, "name": "지우" },
-    { "id": 5, "name": "민수" }
+    {
+      "id": "1",
+      "name": "채린"
+    },
+    {
+      "id": "2",
+      "name": "해원"
+    },
+    {
+      "id": "3",
+      "name": "수호"
+    },
+    {
+      "id": "4",
+      "name": "지우"
+    },
+    {
+      "id": "5",
+      "name": "민수"
+    }
   ],
   "musics": [
-    { "id": 1, "title": "Magnetic", "artist": "ILLIT", "genre": "K-Pop", "duration": "3:24" },
-    { "id": 2, "title": "Ditto", "artist": "NewJeans", "genre": "K-Pop", "duration": "3:05" },
-    { "id": 3, "title": "Dynamite", "artist": "BTS", "genre": "Pop", "duration": "3:19" },
-    { "id": 4, "title": "Hype Boy", "artist": "NewJeans", "genre": "K-Pop", "duration": "2:59" },
-    { "id": 5, "title": "Love Wins All", "artist": "IU", "genre": "Ballad", "duration": "4:31" },
-    { "id": 6, "title": "To. X", "artist": "Taeyeon", "genre": "R&B", "duration": "2:57" },
-    { "id": 7, "title": "Perfect Night", "artist": "LE SSERAFIM", "genre": "Pop", "duration": "2:39" },
-    { "id": 8, "title": "EASY", "artist": "LE SSERAFIM", "genre": "Hip-Hop", "duration": "2:45" },
-    { "id": 9, "title": "Bam Yang Gang", "artist": "BIBI", "genre": "Indie", "duration": "2:26" },
-    { "id": 10, "title": "Fate", "artist": "(G)I-DLE", "genre": "J-Pop Style", "duration": "2:41" }
+    {
+      "id": "1",
+      "title": "Magnetic",
+      "artist": "ILLIT",
+      "genre": "K-Pop",
+      "duration": "3:24"
+    },
+    {
+      "id": "2",
+      "title": "Ditto",
+      "artist": "NewJeans",
+      "genre": "K-Pop",
+      "duration": "3:05"
+    },
+    {
+      "id": "3",
+      "title": "Dynamite",
+      "artist": "BTS",
+      "genre": "Pop",
+      "duration": "3:19"
+    },
+    {
+      "id": "4",
+      "title": "Hype Boy",
+      "artist": "NewJeans",
+      "genre": "K-Pop",
+      "duration": "2:59"
+    },
+    {
+      "id": "5",
+      "title": "Love Wins All",
+      "artist": "IU",
+      "genre": "Ballad",
+      "duration": "4:31"
+    },
+    {
+      "id": "6",
+      "title": "To. X",
+      "artist": "Taeyeon",
+      "genre": "R&B",
+      "duration": "2:57"
+    },
+    {
+      "id": "7",
+      "title": "Perfect Night",
+      "artist": "LE SSERAFIM",
+      "genre": "Pop",
+      "duration": "2:39"
+    },
+    {
+      "id": "8",
+      "title": "EASY",
+      "artist": "LE SSERAFIM",
+      "genre": "Hip-Hop",
+      "duration": "2:45"
+    },
+    {
+      "id": "9",
+      "title": "Bam Yang Gang",
+      "artist": "BIBI",
+      "genre": "Indie",
+      "duration": "2:26"
+    },
+    {
+      "id": "10",
+      "title": "Fate",
+      "artist": "(G)I-DLE",
+      "genre": "J-Pop Style",
+      "duration": "2:41"
+    }
   ],
   "comments": [
-    { "id": 1, "musicId": 1, "userId": 1, "content": "이 노래 너무 중독성 있어요!" },
-    { "id": 2, "musicId": 1, "userId": 2, "content": "유-후-후-후-후 계속 생각남 ㅋㅋ" },
-    { "id": 3, "musicId": 2, "userId": 3, "content": "겨울만 되면 생각나는 띵곡..." },
-    { "id": 4, "musicId": 5, "userId": 1, "content": "뮤비 보면서 울었잖아요ㅠㅠ" },
-    { "id": 5, "musicId": 9, "userId": 4, "content": "달디달고 달디달고 달디단 밤양갱!" },
-    { "id": 6, "musicId": 3, "userId": 5, "content": "언제 들어도 신나는 방탄 노래!" },
-    { "id": 7, "musicId": 10, "userId": 2, "content": "가사가 너무 공감돼요." }
+    {
+      "id": "1",
+      "musicId": 1,
+      "userId": 1,
+      "content": "이 노래 너무 중독성 있어요!"
+    },
+    {
+      "id": "2",
+      "musicId": 1,
+      "userId": 2,
+      "content": "유-후-후-후-후 계속 생각남 ㅋㅋ"
+    },
+    {
+      "id": "3",
+      "musicId": 2,
+      "userId": 3,
+      "content": "겨울만 되면 생각나는 띵곡..."
+    },
+    {
+      "id": "4",
+      "musicId": 5,
+      "userId": 1,
+      "content": "뮤비 보면서 울었잖아요ㅠㅠ"
+    },
+    {
+      "id": "5",
+      "musicId": 9,
+      "userId": 4,
+      "content": "달디달고 달디달고 달디단 밤양갱!"
+    },
+    {
+      "id": "6",
+      "musicId": 3,
+      "userId": 5,
+      "content": "언제 들어도 신나는 방탄 노래!"
+    },
+    {
+      "id": "7",
+      "musicId": 10,
+      "userId": 2,
+      "content": "가사가 너무 공감돼요."
+    }
   ],
   "favorites": [
-    { "id": 1, "userId": 1, "musicId": 1 },
-    { "id": 2, "userId": 1, "musicId": 2 },
-    { "id": 3, "userId": 1, "musicId": 5 },
-    { "id": 4, "userId": 2, "musicId": 1 },
-    { "id": 5, "userId": 2, "musicId": 9 },
-    { "id": 6, "userId": 3, "musicId": 2 },
-    { "id": 7, "userId": 3, "musicId": 3 },
-    { "id": 8, "userId": 4, "musicId": 7 },
-    { "id": 9, "userId": 5, "musicId": 3 },
-    { "id": 10, "userId": 5, "musicId": 8 }
-  ]
+    {
+      "id": "4",
+      "userId": 2,
+      "musicId": 1
+    },
+    {
+      "id": "5",
+      "userId": 2,
+      "musicId": 9
+    },
+    {
+      "id": "6",
+      "userId": 3,
+      "musicId": 2
+    },
+    {
+      "id": "7",
+      "userId": 3,
+      "musicId": 3
+    },
+    {
+      "id": "8",
+      "userId": 4,
+      "musicId": 7
+    },
+    {
+      "id": "9",
+      "userId": 5,
+      "musicId": 3
+    },
+    {
+      "id": "10",
+      "userId": 5,
+      "musicId": 8
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }
