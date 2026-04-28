@@ -1,36 +1,129 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+### **0. 프로젝트 명**
 
-## Getting Started
+- SpotifyMini
 
-First, run the development server:
+### **1. 핵심 기능 명세 (간략히)**
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- Top100 인기 차트 목록(필수)
+- 노래 검색(필수)
+- 노래 상세정보 조회(필수)
+    - 좋아요 기능
+    - 댓글 기능
+- 좋아요 목록 조회
+    - 좋아요 전체 해제
+
+### **2. Zustand 스토어 목록**
+
+- `useMusicStore` : 전체 노래 데이터를 한번만 호출하도록 함.
+- `useUserStore`:
+- `useLikeStore`: 하트 상태 동기화 및 찜 목록 관리
+- `useCommentStore`
+
+### **3. API 데이터 구조 (JSON)**
+
+- `db.json`에 정의될 객체 필드 및 데이터 타입 명시
+
+```json
+{
+  "users": [
+    { "id": 1, "name": "채린" },
+    { "id": 2, "name": "해원" }
+  ],
+  "musics": [
+    { "id": 1, "title": "Magnetic", "artist": "ILLIT", "genre": "K-Pop", "duration": "3:24"}
+  ],
+  "comments": [
+    { 
+      "id": 1, 
+      "musicId": 1, 
+      "userId": 1, 
+      "content": "이 노래 너무 중독성 있어요!" 
+    }
+  ],
+  "favorites": [
+    { "id": 1, "userId": 1, "musicId": 1 },
+    { "id": 2, "userId": 2, "musicId": 1 }
+  ]
+}
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### **4. 와이어프레임 (Design)**
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+![image.png](attachment:a014e6b1-2ca5-4e5a-9669-0ada12f16c7d:image.png)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+![image.png](attachment:e0e1f869-eb77-42f8-8f6c-d2e67e9f965c:image.png)
 
-## Learn More
+![image.png](attachment:ae90bd8d-8579-43a8-9718-2a5e5568f885:image.png)
 
-To learn more about Next.js, take a look at the following resources:
+```jsx
+🎵 1) 전체 곡 목록 
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+-----------------------------------------
+🎧 Song Memo
+-----------------------------------------
+[전체곡] [좋아요목록]
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+[ 검색창: __________________ ] [검색]
 
-## Deploy on Vercel
+-----------------------------------------
+곡 목록
+-----------------------------------------
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+[♡] Ditto - NewJeans        (상세보기 >)
+[♥] Dynamite - BTS          (상세보기 >)
+[♡] Attention - NewJeans    (상세보기 >)
+[♡] Hype Boy - NewJeans     (상세보기 >)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+-----------------------------------------
+♡ = 좋아요 안함 / ♥ = 좋아요
+-----------------------------------------
+
+🎵 2) 곡 상세 
+
+-----------------------------------------
+< 뒤로가기
+-----------------------------------------
+
+🎵 곡 상세 정보
+-----------------------------------------
+제목: Ditto
+가수: NewJeans
+장르: Pop
+길이: 3:22
+
+-----------------------------------------
+[ ♥ 좋아요 ]  (토글 버튼)
+-----------------------------------------
+
+📝 메모
+-----------------------------------------
+[ ______________________________ ]
+[ ______________________________ ]
+[ ______________________________ ]
+
+[ 저장하기 ]
+-----------------------------------------
+
+❤️ 3) 좋아요한 곡 목록 
+
+-----------------------------------------
+[홈]       ❤️ 좋아요한 곡 목록
+-----------------------------------------
+좋아요한 곡
+-----------------------------------------
+
+[♥] Ditto - NewJeans        (상세보기 >)
+[♥] Dynamite - BTS          (상세보기 >)
+
+-----------------------------------------
+[좋아요 전체 해제]
+-----------------------------------------
+```
+
+---
+
+## **기술적 유의사항**
+
+- UI 디자인 보다는 데이터 흐름과 상태 관리 로직의 견고함에 우선순위를 둘 것
+- 네트워크 지연 및 에러 상황에 대한 예외 처리(Loading/Error State)를 반드시 포함할 것
+- Zustand의 `persist` 미들웨어 등을 활용하여 사용자 경험을 강화하는 방안을 고려할 것
