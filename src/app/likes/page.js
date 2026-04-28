@@ -39,12 +39,15 @@ export default function LikesPage() {
                     <button 
                       className={styles.likeButton}
                       onClick={() => toggleLike(fav.userId, fav.music.id)}
-                    >
-                      [{liked ? "♥" : "♡"}]
-                      </button>
-                      {fav.music.title} - {fav.music.artist}
-                      <Link href={`/music/${fav.music.id}`}>(상세보기 &gt;)</Link>
-                    </div>
+                    > [{liked ? "♥" : "♡"}]
+                    </button>
+                  </div>
+
+                  <div className={styles.songInfo}>
+                    {fav.music.title} - {fav.music.artist}
+                  </div>
+                  
+                  <Link href={`/music/${fav.music.id}`} className={styles.detailLink}>(상세보기 &gt;)</Link>
                   </li>
                   );
                   })}
