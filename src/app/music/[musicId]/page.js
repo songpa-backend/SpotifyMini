@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useLikeStore } from "@/store/useLikeStore";
 import { musicApi } from "@/app/api/MusicApi";
 import styles from "./details.module.css";
+import Swal from "sweetalert2";
 
 export default function MusicDetail() {
   const params = useParams(); // URL의 [musicId] 값을 가져옵니다
@@ -54,9 +55,26 @@ export default function MusicDetail() {
       await musicApi.saveComment({ userId, musicId, content: commentInput });
       setCommentInput(""); // 입력창 비우기
       await fetchAllData(); // 목록 새로고침!
-      alert("댓글이 등록되었습니다! 📝");
+      Swal.fire({
+        title: '성공!',
+        text: '댓글이 등록되었습니다.',
+        icon: 'success',
+        confirmButtonText: '확인',
+        width: '300px', 
+        heightAuto: true,
+        padding: '1em',
+      });
     } catch (error) {
-      alert("저장 실패 ㅠ");
+      Swal.fire({
+        title: '등록 실패!',
+        text: '댓글 등록에 실패하였습니다.',
+        icon: 'error',
+        confirmButtonText: '다시 시도',
+        confirmButtonColor: '#d33',
+        width: '300px', 
+        heightAuto: true,
+        padding: '1em'
+      })
     }
   };
 
