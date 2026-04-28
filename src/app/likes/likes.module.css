@@ -81,3 +81,17 @@
   cursor: pointer;
   margin-left: 5;
 }
+
+.songInfo {
+  font-weight: bold;
+  text-align: center;
+  flex: 1;                       /* 가운데 영역이 남은 공간을 다 차지해서 중앙을 유지 */
+}
+
+.detailLink {
+  font-size: 0.85rem;
+  color: #555;
+  text-decoration: none;
+  min-width: 80px;               /* 링크 영역 확보 */
+  text-align: right;
+}
