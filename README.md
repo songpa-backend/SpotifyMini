@@ -1,6 +1,6 @@
 <p align="center">
 <h2 ><p align="center">
-  <img align="center" width="414" height="97" alt="spotifyMini 로고" src="https://github.com/user-attachments/assets/c77428e3-99d0-4283-a990-214489d73e34" /> width="400"></h2>
+  <img align="center" width="300" height="97" alt="spotifyMini 로고" src="https://github.com/user-attachments/assets/c77428e3-99d0-4283-a990-214489d73e34" /></h2>
   <br>
   <strong>🎧 나만의 레트로 플레이리스트, SpotifyMini</strong>
 </p>
