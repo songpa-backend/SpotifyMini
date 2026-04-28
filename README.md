@@ -1,6 +1,7 @@
 <p align="center">
 <h2 ><p align="center">
-  <img align="center" width="250" alt="spotifyMini 로고" src="https://github.com/user-attachments/assets/c77428e3-99d0-4283-a990-214489d73e34" /></h2>
+  <img width="4234" height="992" alt="spotifymini" src="https://github.com/user-attachments/assets/dea71af9-cf85-4f7c-b8b0-b18307c98374" />
+</h2>
 </p>
 <p align="center"><b>플레이리스트·검색·좋아요·댓글 기능으로 나만의 음악 공간을 만드는 SpotifyMini</b><p>
 <br>
