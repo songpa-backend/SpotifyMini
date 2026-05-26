@@ -1,6 +1,6 @@
 const BASE_URL = "http://localhost:3001";
-const MUSIC_API_URL = `${BASE_URL}/musics`;
-const COMMENT_API_URL = `${BASE_URL}/comments`;
+const MUSIC_API_URL = `${BASE_URL}/api/musics`;
+const COMMENT_API_URL = `${BASE_URL}/api/comments`;
 
 export const musicApi = {
 
