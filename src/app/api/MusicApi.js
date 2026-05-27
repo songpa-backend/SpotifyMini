@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:3001";
+const BASE_URL = "http://localhost:3000";
 const MUSIC_API_URL = `${BASE_URL}/api/musics`;
 const COMMENT_API_URL = `${BASE_URL}/api/comments`;
 
@@ -11,7 +11,7 @@ export const musicApi = {
             console.log(res);
             //2. 서버가 응답은 했지만, 상태가 200이 아닌 경우(예 : 404 Not Found)
             if(!res.ok){
-                throw new Error(`서버 에러 발생! 상태 코드:${response.status}`);
+                throw new Error(`서버 에러 발생! 상태 코드:${res.status}`);
             }
             //3. 정상적으로 데이터를 받아왔을 때 
             return await res.json();
