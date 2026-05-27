@@ -100,11 +100,11 @@ export default function Music() {
               :
               //보여줄 목록이 하나라도 있으면 표시
               (searchedMusics.length > 0 ? searchedMusics : musics)?.map(music => {
-                const liked = favorites.some(f => String(f.musicId) === String(music.id));
+                const liked = favorites.some(f => String(f.musicId) === String(music.music_id));
                 return (
-                  <li key={music.id} className={styles.musicItem}>
+                  <li key={music.music_id} className={styles.musicItem}>
                     <button
-                      onClick={() => toggleLike(userId, music.id)}
+                      onClick={() => toggleLike(userId, music.music_id)}
                       style={{
                         background: 'none',
                         border: 'none',
@@ -115,7 +115,7 @@ export default function Music() {
                       [{liked ? "♥" : "♡"}]
                     </button>
                     <p><b>{music.title} - {music.artist}</b></p>
-                    <b><Link href={`/music/${music.id}`} className={styles.detailLink}>(상세보기 &gt;)</Link></b>
+                    <b><Link href={`/music/${music.music_id}`} className={styles.detailLink}>(상세보기 &gt;)</Link></b>
                   </li>
                 );
               })
