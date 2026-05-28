@@ -100,7 +100,7 @@ export default function MusicDetail() {
         <div style={{ marginTop: '15px' }}>
             <button 
                 className={styles.likeButton} 
-                onClick={() => toggleLike(userId, music.id)}>
+                onClick={() => toggleLike(userId, music)}>
                 [{isLiked ? "♥" : "♡"} 좋아요]
             </button>
         </div>

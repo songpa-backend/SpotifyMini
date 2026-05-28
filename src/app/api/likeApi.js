@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: 'http://localhost:3001', 
+  baseURL: 'http://localhost:3000', 
   headers: { 'Content-Type': 'application/json' }
 });
 
@@ -18,6 +18,6 @@ export const likeApi = {
   },
   
   // 좋아요 삭제
-  deleteLike: (id) => api.delete(`/api/favorites/${id}`)
+  deleteLike: (likeId) => api.delete(`/api/favorites?likeId=${likeId}`)
 };
 
