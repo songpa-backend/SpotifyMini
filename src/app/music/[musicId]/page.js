@@ -94,7 +94,7 @@ export default function MusicDetail() {
             <span className={styles.infoItem}>제목: {music.title}</span>
             <span className={styles.infoItem}>가수: {music.artist}</span>
             <span className={styles.infoItem}>장르: {music.genre}</span>
-            <span className={styles.infoItem}>길이: {music.duration}</span>
+            <span className={styles.infoItem}>길이: {music.duration}초</span>
         </div>
 
         <div style={{ marginTop: '15px' }}>
