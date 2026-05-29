@@ -1,5 +1,4 @@
 import { likeApi } from '@/app/api/likeApi';
-import axios from 'axios';
 import { create } from "zustand";
 
 export const useLikeStore = create((set, get) => ({
@@ -7,40 +6,30 @@ export const useLikeStore = create((set, get) => ({
     isLoading: false,
 
     fetchFavorites: async (userId) => {
-        set({ loading: true });
+        set({ isLoading: true }); 
 
         try {
             const res = await likeApi.getFavorites(userId);
-            const favData = res.data;
-
-            const detailedFavorites = await Promise.all(
-            favData.map(async (fav) => {
-                try {
-                    const musicRes = await axios.get(`http://localhost:3001/musics/${fav.musicId}`);
-                    return { ...fav, music: musicRes.data };
-                } catch (err) {
-                    console.error(`${fav.musicId}번 음악 정보 로드 실패`, err);
-                    return { ...fav, music: null }; // 에러 시 음악 정보만 null 처리
-                }
-            }));
-
-            set({ favorites: detailedFavorites, isLoading: false })
+            const detailedFavorites = res.data;
+            
+            set({ favorites: detailedFavorites, isLoading: false });
         } catch (error) {
             console.error("좋아요 목록 로드 실패: ", error);
             set({ isLoading: false });
         }
     },
 
-    toggleLike: async (userId, musicId) => {
+    toggleLike: async (userId, music) => {
         const { favorites } = get();
+        const musicId = music.music_id || music.musicId;
 
-        const existingLike = favorites.find(f => String(f.musicId) === String(musicId) && f.userId === userId);
+        const existingLike = favorites.find(f => f.musicId === musicId && f.userId === userId);
 
         if (existingLike) {
             try {
-                await likeApi.deleteLike(existingLike.id);
+                await likeApi.deleteLike(existingLike.likeId);
                 set({
-                    favorites: favorites.filter(f => f.id !== existingLike.id)
+                    favorites: favorites.filter(f => f.likeId !== existingLike.likeId)
                 })
             } catch (error) {
                 console.error("좋아요 취소 실패: ", error);
@@ -48,9 +37,15 @@ export const useLikeStore = create((set, get) => ({
         } else {
             try {
                 const res = await likeApi.addLike({ userId, musicId });
-                set({
-                    favorites: [...favorites, res.data]
-                })
+                
+                if (res.data.success) {
+                const newFavoriteItem = {
+                    ...music,
+                    musicId: Number(musicId),  
+                    userId: Number(userId),
+                    likeId: Number(res.data.likeId)
+                };
+                set((state) => ({ favorites: [...state.favorites, newFavoriteItem] }));}
             } catch (error) {
                 console.error("좋아요 추가 실패: ", error);
             }
@@ -59,8 +54,9 @@ export const useLikeStore = create((set, get) => ({
 
     clearAllLikes: async () => {
         const { favorites } = get();
+        
         try {
-            const deletePromises = favorites.map(f => likeApi.deleteLike(f.id));
+            const deletePromises = favorites.map(f => likeApi.deleteLike(f.likeId));
             await Promise.all(deletePromises);
             set({ favorites: [] });
         } catch (error) {

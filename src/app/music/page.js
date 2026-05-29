@@ -104,7 +104,7 @@ export default function Music() {
                 return (
                   <li key={music.music_id} className={styles.musicItem}>
                     <button
-                      onClick={() => toggleLike(userId, music.music_id)}
+                      onClick={() => toggleLike(userId, music)}
                       style={{
                         background: 'none',
                         border: 'none',
