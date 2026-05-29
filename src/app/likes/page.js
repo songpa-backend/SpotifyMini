@@ -30,45 +30,41 @@ export default function LikesPage() {
           <ul className={styles.musicList}>
             {favorites.map((fav) => {
               const liked = true;
-              
-              if (!fav.music) return null;
-              
+
               return (
-                <li key={fav.id} className={styles.listItem}>
+                <li key={fav.likeId} className={styles.listItem}>
                   <div className={styles.itemTitle}>
                     <button 
                       className={styles.likeButton}
-                      onClick={() => toggleLike(fav.userId, fav.music.id)}
+                      onClick={() => toggleLike(fav.userId, fav)}
                     > [{liked ? "♥" : "♡"}]
                     </button>
                   </div>
 
                   <div className={styles.songInfo}>
-                    {fav.music.title} - {fav.music.artist}
+                    {fav.musicTitle} - {fav.artist}
                   </div>
                   
-                  <Link href={`/music/${fav.music.id}`} className={styles.detailLink}>(상세보기 &gt;)</Link>
-                  </li>
-                  );
-                  })}
+                  <Link href={`/music/${fav.musicId}`} className={styles.detailLink}>(상세보기 &gt;)</Link>
+                </li>
+              );
+            })}
           </ul>
         )}
 
         <div className={styles.buttonSection}>
-            <button 
-              className={styles.clearButton}
-              onClick={() => {
-                if(confirm("정말로 모든 좋아요를 해제하시겠습니까?")) {
-                  clearAllLikes();
-                }
-              }}
-            >
-              [좋아요 전체 해제]
-            </button>
-          </div>
+          <button 
+            className={styles.clearButton}
+            onClick={() => {
+              if(confirm("정말로 모든 좋아요를 해제하시겠습니까?")) {
+                clearAllLikes();
+              }
+            }}
+          >
+            [좋아요 전체 해제]
+          </button>
         </div>
+      </div>
     </div>
-
-    
   );
 }
