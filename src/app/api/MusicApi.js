@@ -56,9 +56,9 @@ export const musicApi = {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    content: commentData.content, //Comment DB 키캆 반영
-                    music_id: Number(commentData.musicId),
-                    user_id: Number(commentData.userId)
+                    ...commentData,
+                    musicId: Number(commentData.musicId),
+                    userId: Number(commentData.userId)
                 })
             });
             const data = await response.json();
